@@ -15,6 +15,7 @@ int pageFault(int pages[], int n, int frames) {
 
             if(q.size() >= frames) {
                 int victim = q.front();
+                // cout << victim << '\n';
                 q.pop();
                 s.erase(victim);
             }
