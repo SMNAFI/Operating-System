@@ -9,9 +9,11 @@ int pageFault(int pages[], int n, int frames) {
     for(int i = 0; i < n; i++) {
         int p = pages[i];
 
+        // page miss
         if(pos.find(p) == pos.end()) {
             faultCount++;
 
+            // page replace
             if(pos.size() >= frames) {
                 int victim, index = INT_MAX;
                 for(auto it = pos.begin(); it != pos.end(); it++) {
@@ -25,6 +27,7 @@ int pageFault(int pages[], int n, int frames) {
             }
         }
 
+        // updating index of the page
         pos[p] = i+1;
     }
 
@@ -37,7 +40,9 @@ int main() {
 
     int frames = 4;
 
-    cout << "Page Fault Count: " << pageFault(pages, n, frames) << endl;
+    int faultCount = pageFault(pages, n, frames);
+    cout << "Page Hit: " << n - faultCount << endl;
+    cout << "Page Fault: " << faultCount << endl;
 
     return 0;
 }
