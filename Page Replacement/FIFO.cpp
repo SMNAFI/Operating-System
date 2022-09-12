@@ -13,18 +13,15 @@ int pageFault(int pages[], int n, int frames) {
         if(s.count(p) == 0) {
             faultCount++;
 
-            if(q.size() < frames) {
-                q.push(p);
-                s.insert(p);
-            }
-            else {
+            if(q.size() >= frames) {
                 int victim = q.front();
                 q.pop();
                 s.erase(victim);
-
-                q.push(p);
-                s.insert(p);
             }
+
+            q.push(p);
+            s.insert(p);
+
         }
     }
 
