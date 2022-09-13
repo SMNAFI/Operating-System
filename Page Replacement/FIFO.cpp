@@ -10,19 +10,19 @@ int pageFault(int pages[], int n, int frames) {
     for(int i = 0; i < n; i++) {
         int p = pages[i];
         
-        // page miss
+        // page miss 
         if(s.count(p) == 0) {
             faultCount++;
 
-            // page replace
+            // page replace if no empty frames
             if(q.size() >= frames) {
                 int victim = q.front();
-                // cout << victim << '\n';
+                cout << victim << '\n';
                 q.pop();
                 s.erase(victim);
             }
 
-            // inserting required page
+            // inserting missing page
             q.push(p);
             s.insert(p);
         }
@@ -37,6 +37,7 @@ int main() {
 
     int frames = 4;
     int faultCount = pageFault(pages, n, frames);
+    
     cout << "Page Hit: " << n - faultCount << endl;
     cout << "Page Fault: " << faultCount << endl;
 
