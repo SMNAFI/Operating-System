@@ -13,7 +13,7 @@ int pageFault(int pages[], int n, int frames) {
         if(pos.find(p) == pos.end()) {
             faultCount++;
 
-            // page replace
+            // page replace if no empty frames
             if(pos.size() >= frames) {
                 int victim, index = INT_MAX;
                 for(auto it = pos.begin(); it != pos.end(); it++) {
@@ -22,7 +22,7 @@ int pageFault(int pages[], int n, int frames) {
                         index = it->second;
                     }
                 }
-                // cout << victim << '\n';
+                // cout << "Victim: " << victim << '\n';
                 pos.erase(victim);
             }
         }
@@ -35,12 +35,12 @@ int pageFault(int pages[], int n, int frames) {
 }
 
 int main() {
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2};
+    int pages[] = {1, 2, 1, 0, 3, 0, 4, 2, 4};
     int n = sizeof(pages)/sizeof(pages[0]);
 
-    int frames = 4;
-
+    int frames = 3;
     int faultCount = pageFault(pages, n, frames);
+
     cout << "Page Hit: " << n - faultCount << endl;
     cout << "Page Fault: " << faultCount << endl;
 
