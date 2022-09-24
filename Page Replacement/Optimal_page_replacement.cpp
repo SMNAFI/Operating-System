@@ -19,14 +19,14 @@ int pageFault(int pages[], int n, int frames) {
 
             // page replace
             if(s.size() >= frames) {
-                
+
                 // storing current pages
                 vector<pair<int, int>> pos;
                 for(auto it = s.begin(); it != s.end(); it++) {
                     pos.push_back({*it, INT_MAX});
                 }
 
-                // next recent needed index of the current pages 
+                // next recent needed index of the current pages
                 for(int j = 0; j < frames; j++) {
                     for(int k = i + 1; k < n; k++) {
                         if(pos[j].first == pages[k] && pos[j].second == INT_MAX) {

@@ -2,7 +2,7 @@
     using namespace std;
 
 struct Process {
-    int id, at, bt, rt, wt, tt, priority;
+    int id, at, bt, ct, rt, wt, tt, priority;
 };
 
 bool comp(Process a, Process b) {
@@ -62,7 +62,7 @@ int main() {
 
             if(p[index].rt == 0) {
                 completed++;
-
+                p[index].ct = current_time;
                 p[index].tt = current_time - p[index].at;
                 p[index].wt = p[index].tt - p[index].bt;
             }
@@ -76,10 +76,19 @@ int main() {
         total_tat += p[i].tt;
     }
 
-    cout << "\nProcess | " << "Burst time | " << "Waiting time | " << "Turnaround time\n";
-    for(int i = 0; i < n; i++) {
-        cout << " " << p[i].id << "\t\t" << p[i].bt << "\t\t" << p[i].wt << "\t\t" << p[i].tt<< '\n';
-    }
+    // cout << "\nProcess | " << "Burst time | " << "Waiting time | " << "Turnaround time\n";
+    // for(int i = 0; i < n; i++) {
+    //     cout << " " << p[i].id << "\t\t" << p[i].bt << "\t\t" << p[i].wt << "\t\t" << p[i].tt<< '\n';
+    // }
+    //
+    // cout << "\nAverage waiting time: " << total_wt / (double)n << '\n';
+    // cout << "Average turn around time: " << total_tat / (double)n << '\n';
+    cout << "Process ID | " << "Arrival Time | " << "Burst time | "
+        << "Completion Time | " << "Turnaround time | " << "Waiting time\n";
+
+    for(int i = 0; i < n; i++)
+        cout << "\t" << p[i].id << " \t" << p[i].at << " \t\t" << p[i].bt
+        << " \t\t" << p[i].ct << " \t\t" << p[i].tt << " \t\t" << p[i].wt << '\n';
 
     cout << "\nAverage waiting time: " << total_wt / (double)n << '\n';
     cout << "Average turn around time: " << total_tat / (double)n << '\n';

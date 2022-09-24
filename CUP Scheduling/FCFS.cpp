@@ -16,7 +16,7 @@ bool cmp(Process a, Process b) {
 void FCFS(Process p[]) {
     int current_time = p[0].at;
     for(int i = 0; i < n; i++) {
-        if(p[i].at > current_time) current_time = p[i].at;
+        if(p[i].at > current_time) current_time = p[i].at;  // if idle time
 
         p[i].ct = current_time + p[i].bt;
         p[i].tt = p[i].ct - p[i].at;
@@ -30,6 +30,7 @@ void FCFS(Process p[]) {
 }
 
 void display(Process p[]) {
+    // process array is already sorted based on arrival time
     sort(p, p+n, [](Process a, Process b) {
         return a.pid < b.pid;
     });
